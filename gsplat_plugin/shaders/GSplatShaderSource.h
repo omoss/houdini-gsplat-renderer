@@ -303,8 +303,9 @@ const char* const _GSplatMainFragmentShader = R"glsl(
 
     void main()
     {
+        // Modified to use Quadratic kernel instead of Gaussian
         float power = -dot(fsIn.pos.xy, fsIn.pos.xy);
-        float alpha = exp(power);
+        float alpha = 1.0 - (0.22222222222 * -power);
         alpha = clamp(alpha * fsIn.opacity, 0.0, 1.0);
         if (alpha < 1.0/255.0)
             discard;
